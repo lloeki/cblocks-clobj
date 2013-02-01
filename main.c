@@ -24,28 +24,33 @@
  *
  * Requires (obviously) clang or Apple's GCC block patches.
  *
+ *
  *           --- And now for something completely different ---
- *
- * The venerable master Qc Na was walking with his student, Anton. Hoping to
- * prompt the master into a discussion, Anton said "Master, I have heard that
- * objects are a very good thing - is this true?" Qc Na looked pityingly at his
- * student and replied, "Foolish pupil - objects are merely a poor man's
- * closures."
- *
- * Chastised, Anton took his leave from his master and returned to his cell,
- * intent on studying closures. He carefully read the entire "Lambda: The
- * Ultimate..." series of papers and its cousins, and implemented a small
- * Scheme interpreter with a closure-based object system. He learned much, and
- * looked forward to informing his master of his progress.
- *
- * On his next walk with Qc Na, Anton attempted to impress his master by saying
- * "Master, I have diligently studied the matter, and now understand that
- * objects are truly a poor man's closures." Qc Na responded by hitting Anton
- * with his stick, saying "When will you learn? Closures are a poor man's
- * object." At that moment, Anton became enlightened.
- *
- * from: http://people.csail.mit.edu/gregs/ll1-discuss-archive-html/msg03277.html
- *
+ */
+
+#define BODY                                                                   \
+ " The venerable master Qc Na was walking with his student, Anton. Hoping to  "\
+ " prompt the master into a discussion, Anton said “Master, I have heard that "\
+ " objects are a very good thing - is this true?” Qc Na looked pityingly at   "\
+ " his student and replied, “Foolish pupil - objects are merely a poor man's  "\
+ " closures.”                                                                 "\
+ "                                                                        \n\n"\
+ " Chastised, Anton took his leave from his master and returned to his cell,  "\
+ " intent on studying closures. He carefully read the entire ”Lambda: The     "\
+ " Ultimate...” series of papers and its cousins, and implemented a small     "\
+ " Scheme interpreter with a closure-based object system. He learned much, and"\
+ " looked forward to informing his master of his progress.                    "\
+ "                                                                        \n\n"\
+ " On his next walk with Qc Na, Anton attempted to impress his master by      "\
+ " saying “Master, I have diligently studied the matter, and now understand   "\
+ " that objects are truly a poor man's closures.” Qc Na responded by hitting  "\
+ " Anton with his stick, saying ”When will you learn? Closures are a poor     "\
+ " man's object.“ At that moment, Anton became enlightened.                   "\
+
+#define AUTHOR                                      "Anton van Straaten"
+
+/*
+ * from http://people.csail.mit.edu/gregs/ll1-discuss-archive-html/msg03277.html
  */
 
 
@@ -70,7 +75,18 @@ void Post_init(Post *self) {
 }
 
 void Post_printf(Post *self) {
-    printf("%s\n\n%s\n", self->author, self->body);
+    for(char *buf = self->body; *buf != '\0'; buf++) {
+        if (*buf != ' ') {
+            printf("%c", *buf);
+        } else {
+            if (*(buf+1) != ' '  &&
+                *(buf+1) != '\0' &&
+                *(buf+1) != '\n') {
+                printf(" ");
+            }
+        }
+    }
+    printf("\n\n-- %s\n", self->author);
 }
 
 void Post_dealloc(Post *self) {
@@ -86,7 +102,7 @@ void Post_dealloc(Post *self) {
 Post *Post_alloc() {
     Post *new = malloc(sizeof(Post));
     new->author = malloc(255);
-    new->body = malloc(1024);
+    new->body = malloc(2048);
 
     new->init = Block_copy( ^ { Post_init(new); });
     new->printf = Block_copy( ^ { Post_printf(new); });
@@ -99,8 +115,8 @@ int main(void) {
     Post *post = Post_alloc();
     post->init();
 
-    strcpy(post->author, "Foo Bar");
-    strcpy(post->body, "Lorem ipsum dolor sit amet");
+    strcpy(post->author, AUTHOR);
+    strcpy(post->body, BODY);
     post->printf();
 
     post->dealloc();
