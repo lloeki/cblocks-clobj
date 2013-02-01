@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #include <Block.h>
 
@@ -46,7 +47,12 @@ Post *Post_alloc() {
 int main(void) {
     Post *post = Post_alloc();
     post->init();
+
+    strcpy(post->author, "Foo Bar");
+    strcpy(post->body, "Lorem ipsum dolor sit amet");
     post->printf();
+
     post->dealloc();
+
     return 0;
 }
