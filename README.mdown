@@ -7,7 +7,7 @@ Fooling around with Blocks in C to create pseudo-classes and -instances.
     make
     ./main
 
-Optionnally:
+Optionnally, set CC:
 
     CC=clang make
 
