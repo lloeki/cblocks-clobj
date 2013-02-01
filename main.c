@@ -3,13 +3,16 @@
 #include <Block.h>
 
 struct Post_s {
-    char author[255];
-    char body[2048];
+    char *author;
+    char *body;
 };
 typedef struct Post_s Post;
 
 Post *Post_alloc() {
-    return malloc(sizeof(Post));
+    Post *new = malloc(sizeof(Post));
+    new->author = malloc(255);
+    new->body = malloc(1024);
+    return new;
 }
 
 void Post_init(Post *self) {
@@ -22,6 +25,8 @@ void Post_printf(Post *self) {
 }
 
 void Post_dealloc(Post *self) {
+    free(self->body);
+    free(self->author);
     free(self);
 }
 
