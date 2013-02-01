@@ -108,12 +108,12 @@ void Post_dealloc(Post *self) {
 
 
 Post *Post_alloc() {
-    Post *new = malloc(sizeof(Post));
+    Post *new   = malloc(sizeof(Post));
     new->author = malloc(255);
-    new->body = malloc(2048);
+    new->body   = malloc(2048);
 
-    new->init = Block_copy( ^ { Post_init(new); });
-    new->printf = Block_copy( ^ { Post_printf(new); });
+    new->init    = Block_copy( ^ { Post_init(new); });
+    new->printf  = Block_copy( ^ { Post_printf(new); });
     new->dealloc = Block_copy( ^ { Post_dealloc(new); });
 
     return new;
