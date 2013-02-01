@@ -1,15 +1,14 @@
 /*
  * Copyright © 2000 Loic Nageleisen <loic.nageleisen@gmail.com>
  *
- * This work is free. You can redistribute it and/or modify it under the
- * terms of the Do What The Fuck You Want To Public License, Version 2,
- * as published by Sam Hocevar. See the COPYING file for more details.
+ * This work is free. You can redistribute it and/or modify it under the terms
+ * of the Do What The Fuck You Want To Public License, Version 2, as published
+ * by Sam Hocevar. See the COPYING file for more details.
  *
- * This program is free software. It comes without any warranty, to
- * the extent permitted by applicable law. You can redistribute it
- * and/or modify it under the terms of the Do What The Fuck You Want
- * To Public License, Version 2, as published by Sam Hocevar. See
- * http://www.wtfpl.net/ for more details.
+ * This program is free software. It comes without any warranty, to the extent
+ * permitted by applicable law. You can redistribute it and/or modify it under
+ * the terms of the Do What The Fuck You Want To Public License, Version 2, as
+ * published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
  *
  *                                 ---
  *
@@ -59,6 +58,7 @@
 #include <stdio.h>
 #include <Block.h>
 
+
 struct Post_s {
     char *author;
     char *body;
@@ -69,10 +69,12 @@ struct Post_s {
 };
 typedef struct Post_s Post;
 
+
 void Post_init(Post *self) {
     *self->author = '\0';
-    *self->body = '\0';
+    *self->body   = '\0';
 }
+
 
 void Post_printf(Post *self) {
     char *nosp = NULL;
@@ -94,6 +96,7 @@ void Post_printf(Post *self) {
     printf("\n\n-- %s\n", self->author);
 }
 
+
 void Post_dealloc(Post *self) {
     Block_release(self->dealloc);
     Block_release(self->printf);
@@ -103,6 +106,7 @@ void Post_dealloc(Post *self) {
     free(self->author);
     free(self);
 }
+
 
 Post *Post_alloc() {
     Post *new = malloc(sizeof(Post));
@@ -115,6 +119,7 @@ Post *Post_alloc() {
 
     return new;
 }
+
 
 int main(void) {
     Post *post = Post_alloc();
