@@ -1,0 +1,22 @@
+# C Blocks Closure-Objects
+
+Fooling around with Blocks in C to create pseudo-classes and -instances.
+
+## Usage
+
+    make
+    ./main
+
+Optionnally:
+
+    CC=clang make
+
+But mainly, read the source.
+
+## Requirements
+
+A compiler that supports C blocks, like clang (whatever the plaform) or GCC with Apple's block patches.
+
+## Wishes
+
+I wish C11 had blocks as standard, and GCC get on board, and the FSF and Apple stop fighting over copyright assignment blocking an otherwise fine patch merge.
