@@ -1,3 +1,54 @@
+/*
+ * Copyright © 2000 Loic Nageleisen <loic.nageleisen@gmail.com>
+ *
+ * This work is free. You can redistribute it and/or modify it under the
+ * terms of the Do What The Fuck You Want To Public License, Version 2,
+ * as published by Sam Hocevar. See the COPYING file for more details.
+ *
+ * This program is free software. It comes without any warranty, to
+ * the extent permitted by applicable law. You can redistribute it
+ * and/or modify it under the terms of the Do What The Fuck You Want
+ * To Public License, Version 2, as published by Sam Hocevar. See
+ * http://www.wtfpl.net/ for more details.
+ *
+ *                                 ---
+ *
+ * Fooling around with Blocks in C to create pseudo-classes and -instances.
+ *
+ * In this case instance-bound methods are closures which happen to be stored
+ * in the item they're bound to.
+ *
+ * Unfortunately, although the compiler knows the difference, a function and a
+ * type having the same name is not allowed, else we could just have a nice
+ * sugar Post() function doing alloc() and init().
+ *
+ * Requires (obviously) clang or Apple's GCC block patches.
+ *
+ *           --- And now for something completely different ---
+ *
+ * The venerable master Qc Na was walking with his student, Anton. Hoping to
+ * prompt the master into a discussion, Anton said "Master, I have heard that
+ * objects are a very good thing - is this true?" Qc Na looked pityingly at his
+ * student and replied, "Foolish pupil - objects are merely a poor man's
+ * closures."
+ *
+ * Chastised, Anton took his leave from his master and returned to his cell,
+ * intent on studying closures. He carefully read the entire "Lambda: The
+ * Ultimate..." series of papers and its cousins, and implemented a small
+ * Scheme interpreter with a closure-based object system. He learned much, and
+ * looked forward to informing his master of his progress.
+ *
+ * On his next walk with Qc Na, Anton attempted to impress his master by saying
+ * "Master, I have diligently studied the matter, and now understand that
+ * objects are truly a poor man's closures." Qc Na responded by hitting Anton
+ * with his stick, saying "When will you learn? Closures are a poor man's
+ * object." At that moment, Anton became enlightened.
+ *
+ * from: http://people.csail.mit.edu/gregs/ll1-discuss-archive-html/msg03277.html
+ *
+ */
+
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
