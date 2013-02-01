@@ -75,10 +75,15 @@ void Post_init(Post *self) {
 }
 
 void Post_printf(Post *self) {
-    for(char *buf = self->body; *buf != '\0'; buf++) {
+    char *nosp = NULL;
+    for (char *buf = self->body; *buf != '\0'; buf++) {
         if (*buf != ' ') {
-            printf("%c", *buf);
+            nosp = nosp == NULL ? buf : nosp;
         } else {
+            if (nosp != NULL) {
+                fwrite(nosp, sizeof(char), buf - nosp, stdout);
+                nosp = NULL;
+            }
             if (*(buf+1) != ' '  &&
                 *(buf+1) != '\0' &&
                 *(buf+1) != '\n') {
