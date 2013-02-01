@@ -80,16 +80,15 @@ void Post_printf(Post *self) {
     char *nosp = NULL;
     for (char *buf = self->body; *buf != '\0'; buf++) {
         if (*buf != ' ') {
-            nosp = nosp == NULL ? buf : nosp;
-        } else {
-            if (nosp != NULL) {
-                fwrite(nosp, sizeof(char), buf - nosp, stdout);
-                nosp = NULL;
+            if (*buf == '\n') {
+                printf("\n");
+            } else {
+                nosp = nosp == NULL ? buf : nosp;
             }
-            if (*(buf+1) != ' '  &&
-                *(buf+1) != '\0' &&
-                *(buf+1) != '\n') {
-                printf(" ");
+        } else {
+            if (nosp != NULL && *(buf+1) == ' ') {
+                fwrite(nosp, sizeof(char), buf+1 - nosp, stdout);
+                nosp = NULL;
             }
         }
     }
